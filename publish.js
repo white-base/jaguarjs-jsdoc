@@ -320,9 +320,13 @@ exports.publish = function(taffyData, opts, tutorials) {
     var sourceFiles = {};
     var sourceFilePaths = [];
     data().each(function(doclet) {
-         doclet.attribs = '';
+        doclet.attribs = '';
         
-        if (doclet.examples) {
+                // POINT:
+        var desc = doclet.description || '';
+        doclet.description = desc.replace(/\s\s\n/g, '<br>');
+	    
+    	if (doclet.examples) {
             doclet.examples = doclet.examples.map(function(example) {
                 var caption, code;
 
