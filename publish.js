@@ -322,9 +322,15 @@ exports.publish = function(taffyData, opts, tutorials) {
     data().each(function(doclet) {
         doclet.attribs = '';
         
-                // POINT:
+        // POINT:
         var desc = doclet.description || '';
         doclet.description = desc.replace(/\s\s\n/g, '<br>');
+        if (Array.isArray(doclet.params)){
+            for (var ii = 0; ii < doclet.params.length; ii++){
+                var paramDesc = doclet.params[ii].description || '';
+                doclet.params[ii].description = paramDesc.replace(/\n/g, '<br>');
+            }
+        }
 	    
     	if (doclet.examples) {
             doclet.examples = doclet.examples.map(function(example) {
